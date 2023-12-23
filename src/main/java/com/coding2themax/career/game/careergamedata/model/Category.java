@@ -9,7 +9,7 @@ public class Category {
 
   @Id
   Long code;
-  String text;
+  String categoryText;
   Integer displayLevel;
   String selectable;
   Integer sortSequence;
