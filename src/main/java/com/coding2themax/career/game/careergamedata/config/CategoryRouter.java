@@ -15,8 +15,13 @@ public class CategoryRouter {
 
   @Bean
   public RouterFunction<ServerResponse> route(CategoryHandler handler) {
-    return RouterFunctions.route(RequestPredicates.GET("/categories")
-        .and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), handler::getCategories);
+
+    return RouterFunctions.route()
+        .GET("/categories", RequestPredicates.accept(MediaType.APPLICATION_JSON),
+            handler::getCategories)
+        .POST("/category", RequestPredicates.accept(MediaType.APPLICATION_JSON), handler::saveCategory)
+        .build();
+
   }
 
 }

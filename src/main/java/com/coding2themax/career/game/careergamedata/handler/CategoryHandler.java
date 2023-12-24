@@ -3,7 +3,6 @@ package com.coding2themax.career.game.careergamedata.handler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
@@ -22,6 +21,13 @@ public class CategoryHandler {
 
     return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
         .body(service.getAllCategories(), Category.class);
+
+  }
+
+  public Mono<ServerResponse> saveCategory(ServerRequest request) {
+
+    return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+        .body(request.bodyToMono(Category.class).doOnNext(cat -> service.saveCategory(cat)), Category.class);
 
   }
 }
