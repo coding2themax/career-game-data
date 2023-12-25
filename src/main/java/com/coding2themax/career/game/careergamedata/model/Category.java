@@ -1,17 +1,49 @@
 package com.coding2themax.career.game.careergamedata.model;
 
+import java.util.Objects;
+import java.util.Random;
+
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.domain.Persistable;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.lang.Nullable;
 
 import lombok.Data;
 
 @Data
-public class Category {
+@Table(value = "category")
+public class Category implements Persistable<Integer> {
 
   @Id
-  Long code;
+  Integer code;
+  @Column(value = "categorytext")
   String categoryText;
-  Integer displayLevel;
+  @Column(value = "displayLevel")
+  Long displayLevel;
+  @Column
   String selectable;
-  Integer sortSequence;
+
+  @Transient
+  private boolean newCategory;
+
+  @Override
+  @Nullable
+  public Integer getId() {
+
+    return code;
+  }
+
+  @Override
+  public boolean isNew() {
+
+    return this.newCategory || code == null;
+  }
+
+  public Category setAsNew() {
+    this.newCategory = true;
+    return this;
+  }
 
 }
