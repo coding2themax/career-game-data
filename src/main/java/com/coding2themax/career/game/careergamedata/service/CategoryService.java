@@ -11,4 +11,6 @@ public interface CategoryService {
 
   Mono<Category> saveCategory(Category category);
 
+  Mono<Category> findByID(Integer id);
+
 }

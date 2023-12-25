@@ -12,11 +12,11 @@ import org.springframework.lang.Nullable;
 import lombok.Data;
 
 @Data
-@Table
-public class Category implements Persistable<Long> {
+@Table(value = "category")
+public class Category implements Persistable<Integer> {
 
   @Id
-  Long code;
+  Integer code;
   @Column(value = "categorytext")
   String categoryText;
   @Column(value = "displayLevel")
@@ -24,18 +24,24 @@ public class Category implements Persistable<Long> {
   @Column
   String selectable;
 
+  private boolean newCategory;
+
   @Override
   @Nullable
-  public Long getId() {
+  public Integer getId() {
+
     return code;
   }
 
   @Override
   public boolean isNew() {
-    boolean result = Objects.isNull(code);
-    this.code = result ? new Random().nextLong() : this.code;
 
-    return result;
+    return this.newCategory || code == null;
+  }
+
+  public Category setAsNew() {
+    this.newCategory = true;
+    return this;
   }
 
 }

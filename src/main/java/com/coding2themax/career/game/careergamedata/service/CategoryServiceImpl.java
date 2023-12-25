@@ -29,7 +29,25 @@ public class CategoryServiceImpl implements CategoryService {
   public Mono<Category> saveCategory(Category category) {
     LOG.info("saving category {}", category.getCode());
 
-    return repository.save(category);
+    /*
+     * return this.repository.findById(category.getId())
+     * .flatMap(c -> {
+     * c.setCategoryText(category.getCategoryText());
+     * c.setDisplayLevel(category.getDisplayLevel());
+     * c.setSelectable("T");
+     * return this.repository.save(c)
+     * }).switchIfEmpty(this.repository.save(category.setAsNew()));
+     * 
+     * 
+     */
+
+    return this.repository.save(category);
+
+  }
+
+  @Override
+  public Mono<Category> findByID(Integer id) {
+    return this.repository.findById(id);
   }
 
 }
