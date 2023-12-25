@@ -29,18 +29,6 @@ public class CategoryServiceImpl implements CategoryService {
   public Mono<Category> saveCategory(Category category) {
     LOG.info("saving category {}", category.getCode());
 
-    /*
-     * return this.repository.findById(category.getId())
-     * .flatMap(c -> {
-     * c.setCategoryText(category.getCategoryText());
-     * c.setDisplayLevel(category.getDisplayLevel());
-     * c.setSelectable("T");
-     * return this.repository.save(c)
-     * }).switchIfEmpty(this.repository.save(category.setAsNew()));
-     * 
-     * 
-     */
-
     return this.repository.save(category);
 
   }
@@ -48,6 +36,19 @@ public class CategoryServiceImpl implements CategoryService {
   @Override
   public Mono<Category> findByID(Integer id) {
     return this.repository.findById(id);
+  }
+
+  @Override
+  public Mono<Category> updateProduct(int productId, Mono<Category> catMono) {
+    return this.repository.findById(productId)
+        .flatMap(c -> catMono.map(u -> {
+          c.setCategoryText(u.getCategoryText());
+          c.setDisplayLevel(u.getDisplayLevel());
+          c.setSelectable(u.getSelectable());
+          return c;
+        }))
+        .flatMap(p -> this.repository.save(p));
+
   }
 
 }

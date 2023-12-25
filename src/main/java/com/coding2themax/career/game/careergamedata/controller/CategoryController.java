@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.coding2themax.career.game.careergamedata.model.Category;
-import com.coding2themax.career.game.careergamedata.model.Product;
 import com.coding2themax.career.game.careergamedata.service.CategoryService;
 
 import reactor.core.publisher.Flux;
