@@ -12,9 +12,9 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
-public class CategoryServiceImpl implements CategoryService {
+public class CategoryRepositoryService implements CategoryService {
 
-  private static final Logger LOG = LoggerFactory.getLogger(CategoryServiceImpl.class);
+  private static final Logger LOG = LoggerFactory.getLogger(CategoryRepositoryService.class);
 
   @Autowired
   private CategoryRepository repository;
@@ -38,16 +38,18 @@ public class CategoryServiceImpl implements CategoryService {
     return this.repository.findById(id);
   }
 
+  // this.repository.save(cat)
   @Override
-  public Mono<Category> updateProduct(int productId, Mono<Category> catMono) {
-    return this.repository.findById(productId)
-        .flatMap(c -> catMono.map(u -> {
-          c.setCategoryText(u.getCategoryText());
-          c.setDisplayLevel(u.getDisplayLevel());
-          c.setSelectable(u.getSelectable());
-          return c;
-        }))
-        .flatMap(p -> this.repository.save(p));
+  public Mono<Category> updateCategory(String categoryID, Category cat) {
+    return this.repository.findById(Integer.parseInt(categoryID))
+        .flatMap(c -> {
+          c.setCategoryText(cat.getCategoryText());
+          c.setDisplayLevel(cat.getDisplayLevel());
+          c.setSelectable(cat.getSelectable());
+          return this.repository.save(c);
+        }).switchIfEmpty(
+
+            this.repository.save(cat.setAsNew()));
 
   }
 
