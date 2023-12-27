@@ -12,21 +12,31 @@ import com.coding2themax.career.game.careergamedata.service.CategoryService;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
-@RequestMapping("category")
+@RequestMapping("/category")
 public class CategoryController {
 
   @Autowired
   private CategoryService categoryService;
 
-  @GetMapping("all")
+  @GetMapping("/all")
   public Flux<Category> getAll() {
     return this.categoryService.getAllCategories();
   }
 
   @PostMapping
-  public Mono<Category> createProduct(@RequestBody Mono<Category> categoryMono) {
+  public Mono<Category> createCategoryMono(@RequestBody Mono<Category> categoryMono) {
     return categoryMono.flatMap(this.categoryService::saveCategory);
   }
+
+  @PutMapping("/{id}")
+  public Mono<Category> updateCategory(@PathVariable String id, @RequestBody Mono<Category> categoryMono) {
+
+    return categoryService.updateCategory(id, categoryMono);
+
+  }
+
 }

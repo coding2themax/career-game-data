@@ -39,8 +39,8 @@ public class CategoryServiceImpl implements CategoryService {
   }
 
   @Override
-  public Mono<Category> updateProduct(int productId, Mono<Category> catMono) {
-    return this.repository.findById(productId)
+  public Mono<Category> updateCategory(String categoryID, Mono<Category> catMono) {
+    return this.repository.findById(Integer.parseInt(categoryID))
         .flatMap(c -> catMono.map(u -> {
           c.setCategoryText(u.getCategoryText());
           c.setDisplayLevel(u.getDisplayLevel());
