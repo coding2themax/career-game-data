@@ -12,9 +12,9 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
-public class CategoryServiceImpl implements CategoryService {
+public class CategoryRepositoryService implements CategoryService {
 
-  private static final Logger LOG = LoggerFactory.getLogger(CategoryServiceImpl.class);
+  private static final Logger LOG = LoggerFactory.getLogger(CategoryRepositoryService.class);
 
   @Autowired
   private CategoryRepository repository;
