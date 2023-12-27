@@ -55,7 +55,7 @@ public class CategoryControllerTest {
 
     cat1.setCode(1);
     Mono<Category> catMono = Mono.just(cat1);
-    BDDMockito.when(categoryService.updateCategory("1", Mono.just(cat1))).thenReturn(catMono);
+    BDDMockito.when(categoryService.updateCategory("1", cat1)).thenReturn(catMono);
     this.webClient.put().uri("/category/{id}", "1").accept(MediaType.APPLICATION_JSON)
         .body(BodyInserters.fromProducer(Mono.just(cat1), Category.class)).exchange().expectStatus().isOk();
   }

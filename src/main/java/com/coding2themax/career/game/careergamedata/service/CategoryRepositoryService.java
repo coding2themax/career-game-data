@@ -38,16 +38,18 @@ public class CategoryRepositoryService implements CategoryService {
     return this.repository.findById(id);
   }
 
+  // this.repository.save(cat)
   @Override
-  public Mono<Category> updateCategory(String categoryID, Mono<Category> catMono) {
+  public Mono<Category> updateCategory(String categoryID, Category cat) {
     return this.repository.findById(Integer.parseInt(categoryID))
-        .flatMap(c -> catMono.map(u -> {
-          c.setCategoryText(u.getCategoryText());
-          c.setDisplayLevel(u.getDisplayLevel());
-          c.setSelectable(u.getSelectable());
-          return c;
-        }))
-        .flatMap(p -> this.repository.save(p));
+        .flatMap(c -> {
+          c.setCategoryText(cat.getCategoryText());
+          c.setDisplayLevel(cat.getDisplayLevel());
+          c.setSelectable(cat.getSelectable());
+          return this.repository.save(c);
+        }).switchIfEmpty(
+
+            this.repository.save(cat.setAsNew()));
 
   }
 

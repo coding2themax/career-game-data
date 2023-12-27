@@ -13,5 +13,5 @@ public interface CategoryService {
 
   Mono<Category> findByID(Integer id);
 
-  Mono<Category> updateCategory(String categoryID, final Mono<Category> catMono);
+  Mono<Category> updateCategory(String categoryID, final Category catMono);
 }

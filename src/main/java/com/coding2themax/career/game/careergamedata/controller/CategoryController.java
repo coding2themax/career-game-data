@@ -35,7 +35,9 @@ public class CategoryController {
   @PutMapping("/{id}")
   public Mono<Category> updateCategory(@PathVariable String id, @RequestBody Mono<Category> categoryMono) {
 
-    return categoryService.updateCategory(id, categoryMono);
+    return categoryMono.flatMap(c -> {
+      return categoryService.updateCategory(id, c);
+    }).switchIfEmpty(Mono.just(new Category()));
 
   }
 
