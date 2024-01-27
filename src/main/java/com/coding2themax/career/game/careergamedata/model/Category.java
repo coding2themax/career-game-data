@@ -10,7 +10,7 @@ import org.springframework.lang.Nullable;
 import lombok.Data;
 
 @Data
-@Table(value = "category")
+@Table(value = "category", schema = "ors")
 public class Category implements Persistable<Integer> {
 
   @Id

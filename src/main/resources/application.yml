@@ -1,4 +1,13 @@
 spring:
+  jpa:
+    properties:
+      javax:
+        persistence:
+          schema-generation:
+            scripts:
+              action: create
+              create-target: schema-all.sql
+              create-source: metedata
   r2dbc:
     url: ${postgres-url}
     username: ${postgres-username}
