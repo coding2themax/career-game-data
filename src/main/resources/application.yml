@@ -3,3 +3,6 @@ spring:
     url: ${postgres-url}
     username: ${postgres-username}
     password: ${postgres-password}
+
+server:
+  port: 12000
