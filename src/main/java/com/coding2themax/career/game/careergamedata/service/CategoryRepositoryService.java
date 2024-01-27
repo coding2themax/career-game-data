@@ -3,6 +3,7 @@ package com.coding2themax.career.game.careergamedata.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import com.coding2themax.career.game.careergamedata.model.Category;
@@ -34,7 +35,7 @@ public class CategoryRepositoryService implements CategoryService {
   }
 
   @Override
-  public Mono<Category> findByID(Integer id) {
+  public Mono<Category> findByID(@NonNull Integer id) {
     return this.repository.findById(id);
   }
 
@@ -48,7 +49,6 @@ public class CategoryRepositoryService implements CategoryService {
           c.setSelectable(cat.getSelectable());
           return this.repository.save(c);
         }).switchIfEmpty(
-
             this.repository.save(cat.setAsNew()));
 
   }
