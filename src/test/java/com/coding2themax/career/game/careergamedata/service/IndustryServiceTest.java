@@ -67,6 +67,5 @@ public class IndustryServiceTest {
         .expectComplete().verify();
 
     BDDMockito.verify(repository).findById(0);
-    // BDDMockito.verify(repository).save(industry1);
   }
 }
