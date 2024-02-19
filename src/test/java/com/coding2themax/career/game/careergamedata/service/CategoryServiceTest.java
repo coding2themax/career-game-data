@@ -67,6 +67,8 @@ public class CategoryServiceTest {
 
     BDDMockito.when(repository.save(cat)).thenReturn(Mono.just(cat));
 
+    BDDMockito.when(repository.findById(0)).thenReturn(Mono.empty());
+
     StepVerifier.create(service.saveCategory(cat)).expectNextMatches(c -> c.getCode().equals(0)).expectComplete()
         .verify();
     BDDMockito.verify(repository).save(cat);
