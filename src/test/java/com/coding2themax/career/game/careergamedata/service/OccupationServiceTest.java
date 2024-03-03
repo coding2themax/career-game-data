@@ -8,7 +8,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.coding2themax.career.game.careergamedata.model.Industry;
 import com.coding2themax.career.game.careergamedata.model.Occupation;
 import com.coding2themax.career.game.careergamedata.repository.OccupationRepository;
 
@@ -44,7 +43,7 @@ public class OccupationServiceTest {
     BDDMockito.when(repositoryService.save(occupation1)).thenReturn(Mono.just(occupation1));
     occupation1.setNewOccupation(true);
     Assertions.assertTrue(occupation1.isNew());
-    StepVerifier.create(repositoryService.save(occupation1))
+    StepVerifier.create(occupationService.saveOccupation(occupation1))
         .expectNextMatches(c -> c.getOccupationText().equals("occupation1 text"))
         .expectComplete()
         .verify();
@@ -58,6 +57,7 @@ public class OccupationServiceTest {
     occupation1.setCode(0);
     occupation1.setDisplayLevel(0l);
     occupation1.setOccupationText("occupation1 text");
+    Assertions.assertEquals(0, occupation1.getId());
     BDDMockito.when(repositoryService.save(occupation1)).thenReturn(Mono.just(occupation1));
     occupation1.setNewOccupation(false);
     BDDMockito.when(repositoryService.findById(0)).thenReturn(Mono.just(occupation1));

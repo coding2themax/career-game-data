@@ -42,6 +42,8 @@ public class AdditiveRepositoryService implements AdditiveService {
 
   @Override
   public Mono<Additive> updateAdditive(String id, Additive additive) {
+    additive.setCode(Integer.parseInt(id));
+
     return saveOrUpdate(additive);
   }
 
