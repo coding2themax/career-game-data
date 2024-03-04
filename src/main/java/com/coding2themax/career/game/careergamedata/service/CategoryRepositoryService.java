@@ -44,6 +44,7 @@ public class CategoryRepositoryService implements CategoryService {
     return saveOrUpdate(categoryID, cat);
   }
 
+  @SuppressWarnings("null")
   private Mono<Category> saveOrUpdate(Category category) {
     return this.repository.findById(category.getId())
         .flatMap(c -> {

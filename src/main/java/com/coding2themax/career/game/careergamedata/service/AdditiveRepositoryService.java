@@ -25,6 +25,7 @@ public class AdditiveRepositoryService implements AdditiveService {
     return saveOrUpdate(additive);
   }
 
+  @SuppressWarnings("null")
   private Mono<Additive> saveOrUpdate(Additive additive) {
     return this.repository.findById(additive.getId()).flatMap(a -> {
       a.setAdditiveText(additive.getAdditiveText());
@@ -35,6 +36,7 @@ public class AdditiveRepositoryService implements AdditiveService {
         this.repository.save(additive.setAsNew()));
   }
 
+  @SuppressWarnings("null")
   @Override
   public Mono<Additive> findByID(Integer id) {
     return this.repository.findById(id);

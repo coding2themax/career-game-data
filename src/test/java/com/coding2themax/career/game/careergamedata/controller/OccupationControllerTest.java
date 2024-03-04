@@ -24,6 +24,7 @@ public class OccupationControllerTest {
   @Autowired
   private WebTestClient client;
 
+  @SuppressWarnings("null")
   @Test
   void testCreateOccupation() {
     Occupation occupation = new Occupation();
@@ -59,6 +60,7 @@ public class OccupationControllerTest {
 
   }
 
+  @SuppressWarnings("null")
   @Test
   void testUpdateOccupation() {
     Occupation occupation = new Occupation();

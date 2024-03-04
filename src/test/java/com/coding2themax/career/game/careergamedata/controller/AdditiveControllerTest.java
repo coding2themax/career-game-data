@@ -10,7 +10,6 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 
 import com.coding2themax.career.game.careergamedata.model.Additive;
-import com.coding2themax.career.game.careergamedata.model.Category;
 import com.coding2themax.career.game.careergamedata.service.AdditiveService;
 
 import reactor.core.publisher.Flux;
@@ -24,6 +23,7 @@ public class AdditiveControllerTest {
   @Autowired
   private WebTestClient client;
 
+  @SuppressWarnings("null")
   @Test
   void testCreateAdditive() {
     Additive additive = new Additive();
@@ -49,6 +49,7 @@ public class AdditiveControllerTest {
 
   }
 
+  @SuppressWarnings("null")
   @Test
   void testUpdateAdditive() {
     Additive additive = new Additive();
