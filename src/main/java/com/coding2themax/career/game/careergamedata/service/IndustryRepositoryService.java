@@ -28,6 +28,7 @@ public class IndustryRepositoryService implements IndustryService {
     return repository.save(industry);
   }
 
+  @SuppressWarnings("null")
   @Override
   public Mono<Industry> updateIndustry(String industryID, Industry industry) {
     return this.repository.findById(Integer.parseInt(industryID))

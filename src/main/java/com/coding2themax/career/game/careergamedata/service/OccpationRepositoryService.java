@@ -26,6 +26,7 @@ public class OccpationRepositoryService implements OccupationService {
     return repository.save(occupation);
   }
 
+  @SuppressWarnings("null")
   @Override
   public Mono<Occupation> updateOccupation(String occupationID, Occupation occupation) {
     return this.repository.findById(Integer.parseInt(occupationID))

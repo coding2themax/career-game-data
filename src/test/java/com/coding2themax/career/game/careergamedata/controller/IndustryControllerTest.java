@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 
-import com.coding2themax.career.game.careergamedata.model.Category;
 import com.coding2themax.career.game.careergamedata.model.Industry;
 import com.coding2themax.career.game.careergamedata.service.IndustryService;
 
@@ -24,6 +23,7 @@ public class IndustryControllerTest {
   @Autowired
   private WebTestClient webClient;
 
+  @SuppressWarnings("null")
   @Test
   void testAdd() {
 

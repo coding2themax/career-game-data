@@ -30,8 +30,7 @@ public class CategoryRepositoryService implements CategoryService {
   public Mono<Category> saveCategory(Category category) {
     LOG.info("saving category {}", category.getCode());
 
-    return this.repository.save(category);
-
+    return saveOrUpdate(category);
   }
 
   @Override
@@ -42,14 +41,25 @@ public class CategoryRepositoryService implements CategoryService {
   // this.repository.save(cat)
   @Override
   public Mono<Category> updateCategory(String categoryID, Category cat) {
-    return this.repository.findById(Integer.parseInt(categoryID))
+    return saveOrUpdate(categoryID, cat);
+  }
+
+  @SuppressWarnings("null")
+  private Mono<Category> saveOrUpdate(Category category) {
+    return this.repository.findById(category.getId())
         .flatMap(c -> {
-          c.setCategoryText(cat.getCategoryText());
-          c.setDisplayLevel(cat.getDisplayLevel());
-          c.setSelectable(cat.getSelectable());
+          c.setCategoryText(category.getCategoryText());
+          c.setDisplayLevel(category.getDisplayLevel());
+          c.setSelectable(category.getSelectable());
           return this.repository.save(c);
         }).switchIfEmpty(
-            this.repository.save(cat.setAsNew()));
+            this.repository.save(category.setAsNew()));
+  }
+
+  private Mono<Category> saveOrUpdate(String catID, Category cat) {
+
+    cat.setCode(Integer.parseInt(catID));
+    return saveOrUpdate(cat);
 
   }
 

@@ -24,6 +24,7 @@ public class CategoryControllerTest {
   @Autowired
   private WebTestClient webClient;
 
+  @SuppressWarnings("null")
   @Test
   void testCreateProduct() {
 
@@ -49,6 +50,7 @@ public class CategoryControllerTest {
 
   }
 
+  @SuppressWarnings("null")
   @Test
   void testUpdate() {
     Category cat1 = new Category();
